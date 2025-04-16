@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useGetTickets } from "./hooks/useGetTickets";
+import { TicketDetails } from "./components/TicketDetails";
+import { Ticket } from "./types";
 
-function App() {
+export default () => {
+  const { tickets, refreshData } = useGetTickets();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <table style={{ width: "100%" }}>
+        <thead>
+          <tr>
+            <th>Title</th>
+
+            <th>Type</th>
+
+            <th>Release Date</th>
+
+            <th>Selector</th>
+
+            <th>Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {tickets?.map((ticket: Ticket) => (
+            <TicketDetails
+              key={ticket.id}
+              ticket={ticket}
+              refreshData={refreshData}
+            />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
-
-export default App;
+};
