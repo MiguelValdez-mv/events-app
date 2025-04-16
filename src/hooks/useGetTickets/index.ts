@@ -17,7 +17,7 @@ export function useGetTickets() {
           localStorage.getItem(KEYS.UNITS_BY_TICKET_ID(ticket.id)) || "0"
         ),
       }))
-      .sort((a: Ticket, b: Ticket) => a.releaseDate - b.releaseDate);
+      .sort((a: Ticket, b: Ticket) => b.releaseDate - a.releaseDate);
 
     setTickets(data);
   };

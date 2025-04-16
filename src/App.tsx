@@ -27,6 +27,7 @@ export default () => {
           <tbody>
             {tickets
               ?.filter((ticket) => ticket.units >= 1)
+              .sort((a, b) => b.units - a.units)
               .map((ticket) => (
                 <tr>
                   <td>{ticket.title}</td>
