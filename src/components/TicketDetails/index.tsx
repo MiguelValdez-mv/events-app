@@ -3,6 +3,7 @@ import { Selector } from "../Selector";
 import { Modal } from "../Modal";
 import { useState } from "react";
 import { useSelector } from "../../hooks/useSelector";
+import { useModal } from "../../hooks/useModal";
 
 export type TicketDetailsProps = {
   ticket: Ticket;
@@ -10,15 +11,13 @@ export type TicketDetailsProps = {
 };
 
 export function TicketDetails({ ticket, refreshData }: TicketDetailsProps) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const toggleModal = () => setIsOpenModal((prev) => !prev);
+  const { isOpen, openModal, closeModal } = useModal();
 
   const selector = useSelector({ ticketId: ticket.id, refreshData });
 
   return (
     <>
-      <Modal isOpen={isOpenModal} closeModal={toggleModal}>
+      <Modal isOpen={isOpen} closeModal={closeModal}>
         <h1>
           Name: {ticket.title} - Type: {ticket.type}
         </h1>
@@ -28,14 +27,14 @@ export function TicketDetails({ ticket, refreshData }: TicketDetailsProps) {
         <button
           onClick={() => {
             selector.addUnit();
-            setIsOpenModal(false);
+            closeModal();
           }}
         >
           Add
         </button>
       </Modal>
 
-      <tr onClick={toggleModal}>
+      <tr onClick={openModal}>
         <td>{ticket.title}</td>
 
         <td>{ticket.type}</td>
