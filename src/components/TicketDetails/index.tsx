@@ -1,5 +1,7 @@
 import { Ticket } from "../../types";
 import { Selector } from "../Selector";
+import { Modal } from "../Modal";
+import { useState } from "react";
 
 export type TicketDetailsProps = {
   ticket: Ticket;
@@ -7,21 +9,31 @@ export type TicketDetailsProps = {
 };
 
 export function TicketDetails({ ticket, refreshData }: TicketDetailsProps) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const toggleModal = () => setIsOpenModal((prev) => !prev);
+
   return (
-    <tr>
-      <td>{ticket.title}</td>
+    <>
+      <Modal isOpen={isOpenModal} closeModal={toggleModal}>
+        {null}
+      </Modal>
 
-      <td>{ticket.type}</td>
+      <tr onClick={toggleModal}>
+        <td>{ticket.title}</td>
 
-      <td>{new Date(ticket.releaseDate).toDateString()}</td>
+        <td>{ticket.type}</td>
 
-      <td>
-        <Selector ticketId={ticket.id} refreshData={refreshData} />
-      </td>
+        <td>{new Date(ticket.releaseDate).toDateString()}</td>
 
-      <td>
-        {ticket.price} {ticket.currency}
-      </td>
-    </tr>
+        <td>
+          <Selector ticketId={ticket.id} refreshData={refreshData} />
+        </td>
+
+        <td>
+          {ticket.price} {ticket.currency}
+        </td>
+      </tr>
+    </>
   );
 }
