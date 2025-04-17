@@ -1,7 +1,6 @@
 import { Ticket } from "../../types";
 import { Selector } from "../Selector";
 import { Modal } from "../Modal";
-import { useState } from "react";
 import { useSelector } from "../../hooks/useSelector";
 import { useModal } from "../../hooks/useModal";
 
